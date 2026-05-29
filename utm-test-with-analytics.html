@@ -6,25 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GEO UTM追踪测试页 - 真实分析工具版</title>
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics 4 代码 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2CJWTJX49K"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+        function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'G-2CJWTJX49K');
+        // 获取UTM参数的函数
+        function getUrlParam(name) {
+            var params = new URLSearchParams(window.location.search);
+            return params.get(name) || '(not set)';
+        }
+
+        // 发送带有UTM参数的配置
+        gtag('config', 'G-2CJWTJX49K', {
+            'utm_source': getUrlParam('utm_source'),
+            'utm_medium': getUrlParam('utm_medium'),
+            'utm_campaign': getUrlParam('utm_campaign')
+        });
     </script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-YOUR_GA4_ID', {
-    'utm_source': getUrlParam('utm_source'),
-    'utm_medium': getUrlParam('utm_medium'),
-    'utm_campaign': getUrlParam('utm_campaign')
-    });
-    </script>
-    -->
 
     <!-- ============================================
          百度统计 代码
