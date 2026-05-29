@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEO UTM追踪测试页 - 真实分析工具版</title>
+
+    <!-- ============================================
+         Google Analytics 4 代码
+         使用说明：
+         1. 将 G-XXXXXXXXXX 替换为你的GA4测量ID
+         2. 创建账号：https://analytics.google.com
+         ============================================ -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_GA4_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-YOUR_GA4_ID', {
+            'utm_source': getUrlParam('utm_source'),
+            'utm_medium': getUrlParam('utm_medium'),
+            'utm_campaign': getUrlParam('utm_campaign')
+        });
+    </script>
+    -->
+
+    <!-- ============================================
+         百度统计 代码
+         使用说明：
+         1. 将 hm.js? 后面替换为你的百度统计ID
+         2. 创建账号：https://tongji.baidu.com
+         ============================================ -->
+    <!--
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?YOUR_BAIDU_TONGJI_ID";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    -->
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px 20px 0 0;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 28px; margin-bottom: 10px; }
+        .header p { opacity: 0.9; }
+
+        .content { background: white; color: #333; border-radius: 0 0 20px 20px; padding: 30px; }
+
+        .section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .info-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .info-item label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .info-item span {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        .highlight { color: #667eea; }
+        .no-data { color: #999; font-style: italic; }
+
+        .test-links { text-align: center; margin: 20px 0; }
+        .test-links a {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 5px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .test-link { background: #667eea; color: white; }
+        .test-link:hover { background: #764ba2; transform: translateY(-2px); }
+        .test-link.secondary { background: #6c757d; }
+        .test-link.secondary:hover { background: #5a6268; }
+
+        .instructions {
+            background: #fff3cd;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .instructions h3 { color: #856404; border-bottom-color: #ffc107; }
+        .instructions ol { padding-left: 20px; line-height: 2; color: #495057; }
+        .instructions code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #d63384;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .code-block .comment { color: #6a9955; }
+        .code-block .keyword { color: #569cd6; }
+        .code-block .string { color: #ce9178; }
+        .code-block .function { color: #dcdcaa; }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table th { background: #667eea; color: white; }
+        .comparison-table tr:nth-child(even) { background: #f8f9fa; }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-disabled { background: #dc3545; color: white; }
+        .status-enabled { background: #28a745; color: white; }
+
+        .warning-box {
+            background: #f8d7da;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #dc3545;
+        }
+        .warning-box h4 { color: #721c24; margin-bottom: 8px; }
+        .warning-box p { color: #721c24; font-size: 14px; }
+
+        .success-box {
+            background: #d4edda;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+        }
+        .success-box h4 { color: #155724; margin-bottom: 8px; }
+        .success-box p { color: #155724; font-size: 14px; }
+
+        .console-demo {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+        }
+        .console-demo .log-line { color: #d4d4d4; margin: 5px 0; }
+        .console-demo .log-source { color: #569cd6; }
+        .console-demo .log-value { color: #ce9178; }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔗 GEO UTM追踪测试页 - 真实分析工具版</h1>
+            <p>包含 Google Analytics 和百度统计的真实集成代码</p>
+        </div>
+
+        <div class="content">
+            <!-- 状态提示 -->
+            <div class="warning-box">
+                <h4>⚠️ 当前状态：分析工具代码已禁用</h4>
+                <p>为了安全起见，分析工具代码已被注释掉。本页面用于演示和测试，实际使用时需要替换为你的真实ID。</p>
+            </div>
+
+            <!-- 当前信息 -->
+            <div class="section">
+                <h3>📊 当前访问信息</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>来源 (utm_source)</label>
+                        <span id="utm_source" class="no-data">未检测到</span>
+                    </div>
+                    <div class="info-item">
+                        <label>媒介 (utm_medium)</label>
+                        <span id="utm_medium" class="no-data">未检测到</span>
+                    </div>
+                    <div class="info-item">
+                        <label>活动 (utm_campaign)</label>
+                        <span id="utm_campaign" class="no-data">未检测到</span>
+                    </div>
+                    <div class="info-item">
+                        <label>访问时间</label>
+                        <span id="visit_time" class="highlight">加载中...</span>
+                    </div>
+                </div>
+
+                <div class="test-links">
+                    <a href="?utm_source=ai&utm_medium=doubao&utm_campaign=memory_pillow" class="test-link">🌐 豆包AI来源</a>
+                    <a href="?utm_source=ai&utm_medium=qwen&utm_campaign=memory_pillow" class="test-link">🌐 千问AI来源</a>
+                    <a href="?utm_source=baidu&utm_medium=search&utm_campaign=memory_pillow" class="test-link secondary">🔍 百度搜索</a>
+                    <a href="?" class="test-link secondary">🔄 清除参数</a>
+                </div>
+            </div>
+
+            <!-- Google Analytics 说明 -->
+            <div class="section">
+                <h3>📈 Google Analytics 4 (GA4) 集成说明</h3>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>项目</th>
+                        <th>说明</th>
+                    </tr>
+                    <tr>
+                        <td>官网</td>
+                        <td><a href="https://analytics.google.com" target="_blank">https://analytics.google.com</a></td>
+                    </tr>
+                    <tr>
+                        <td>价格</td>
+                        <td>免费（基础版够用）</td>
+                    </tr>
+                    <tr>
+                        <td>注册要求</td>
+                        <td>Google账号 + 网站域名</td>
+                    </tr>
+                    <tr>
+                        <td>数据延迟</td>
+                        <td>通常 24-48 小时</td>
+                    </tr>
+                </table>
+
+                <div class="success-box">
+                    <h4>✅ 如何获取你的 GA4 测量ID</h4>
+                    <ol style="color: #155724; padding-left: 20px; line-height: 2;">
+                        <li>访问 <strong>Google Analytics</strong> 并登录</li>
+                        <li>点击左下角"管理" ⚙️</li>
+                        <li>在"资源"列，点击"数据流"</li>
+                        <li>点击你的网站数据流</li>
+                        <li>找到"测量ID"，格式类似 <code>G-XXXXXXXXXX</code></li>
+                    </ol>
+                </div>
+
+                <h4 style="margin: 15px 0 10px;">📋 GA4 代码示例</h4>
+                <div class="code-block"><span class="comment">&lt;!-- 1. 在 &lt;head&gt; 中添加全局代码 --&gt;</span>
+<span class="keyword">&lt;script</span> <span class="function">async src</span>=<span class="string">"https://www.googletagmanager.com/gtag/js?id=G-YOUR_ID"</span><span class="keyword">&gt;&lt;/script&gt;</span>
+<span class="keyword">&lt;script&gt;</span>
+    <span class="function">window.dataLayer</span> = <span class="keyword">window.dataLayer</span> || [];
+    <span class="keyword">function</span> <span class="function">gtag</span>(){ <span class="function">dataLayer.push</span>(arguments); };
+    <span class="function">gtag</span>(<span class="string">'js'</span>, <span class="keyword">new</span> Date());
+    <span class="function">gtag</span>(<span class="string">'config'</span>, <span class="string">'G-YOUR_ID'</span>);
+<span class="keyword">&lt;/script&gt;</span>
+
+<span class="comment">&lt;!-- 2. 追踪页面浏览（含UTM参数） --&gt;</span>
+<span class="keyword">&lt;script&gt;</span>
+    <span class="keyword">function</span> <span class="function">getUrlParam</span>(name) {
+        <span class="keyword">var</span> params = <span class="keyword">new</span> URLSearchParams(window.location.search);
+        <span class="keyword">return</span> params.get(name) || <span class="string">'(not set)'</span>;
+    }
+    <span class="function">gtag</span>(<span class="string">'config'</span>, <span class="string">'G-YOUR_ID'</span>, {
+        <span class="string">'page_title'</span>: <span class="string">'测试页面'</span>,
+        <span class="string">'page_location'</span>: window.location.href,
+        <span class="string">'utm_source'</span>: <span class="function">getUrlParam</span>(<span class="string">'utm_source'</span>),
+        <span class="string">'utm_medium'</span>: <span class="function">getUrlParam</span>(<span class="string">'utm_medium'</span>),
+        <span class="string">'utm_campaign'</span>: <span class="function">getUrlParam</span>(<span class="string">'utm_campaign'</span>)
+    });
+<span class="keyword">&lt;/script&gt;</span></div>
+
+                <h4 style="margin: 15px 0 10px;">📊 GA4 能看到的数据</h4>
+                <ul style="padding-left: 20px; line-height: 2;">
+                    <li>实时数据：当前在线用户、正在访问的页面</li>
+                    <li>用户来源：按 utm_source/medium/campaign 分组</li>
+                    <li>转化追踪：注册、购买、表单提交等目标</li>
+                    <li>用户行为：页面停留、跳出率、滚动深度</li>
+                </ul>
+            </div>
+
+            <!-- 百度统计 说明 -->
+            <div class="section">
+                <h3>📉 百度统计 集成说明</h3>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>项目</th>
+                        <th>说明</th>
+                    </tr>
+                    <tr>
+                        <td>官网</td>
+                        <td><a href="https://tongji.baidu.com" target="_blank">https://tongji.baidu.com</a></td>
+                    </tr>
+                    <tr>
+                        <td>价格</td>
+                        <td>免费</td>
+                    </tr>
+                    <tr>
+                        <td>注册要求</td>
+                        <td>百度账号 + 网站域名（需备案）</td>
+                    </tr>
+                    <tr>
+                        <td>数据延迟</td>
+                        <td>通常几小时，实时功能需付费</td>
+                    </tr>
+                </table>
+
+                <div class="success-box">
+                    <h4>✅ 如何获取你的百度统计代码</h4>
+                    <ol style="color: #155724; padding-left: 20px; line-height: 2;">
+                        <li>访问 <strong>百度统计</strong> 并登录</li>
+                        <li>点击"管理" → "新增网站"</li>
+                        <li>填写网站信息（域名需备案）</li>
+                        <li>复制生成的 <code>hm.js?xxxxxxxx</code> 代码</li>
+                    </ol>
+                </div>
+
+                <h4 style="margin: 15px 0 10px;">📋 百度统计代码示例</h4>
+                <div class="code-block"><span class="comment">&lt;!-- 百度统计代码（放在 &lt;body&gt; 最前面） --&gt;</span>
+<span class="keyword">&lt;script&gt;</span>
+    <span class="keyword">var</span> _hmt = _hmt || [];
+    (<span class="keyword">function</span>() {
+        <span class="keyword">var</span> hm = document.createElement(<span class="string">"script"</span>);
+        hm.src = <span class="string">"https://hm.baidu.com/hm.js?YOUR_ID"</span>;
+        <span class="keyword">var</span> s = document.getElementsByTagName(<span class="string">"script"</span>)[<span class="string">0</span>];
+        s.parentNode.insertBefore(hm, s);
+    })();
+<span class="keyword">&lt;/script&gt;</span>
+
+<span class="comment">&lt;!-- 手动追踪UTM来源（可选） --&gt;</span>
+<span class="keyword">&lt;script&gt;</span>
+    <span class="keyword">if</span> (_hmt) {
+        _hmt.push([<span class="string">'_setCustomVar'</span>, <span class="string">'utm_source'</span>, getUrlParam(<span class="string">'utm_source'</span>)]);
+        _hmt.push([<span class="string">'_setCustomVar'</span>, <span class="string">'utm_medium'</span>, getUrlParam(<span class="string">'utm_medium'</span>)]);
+    }
+<span class="keyword">&lt;/script&gt;</span></div>
+
+                <h4 style="margin: 15px 0 10px;">📊 百度统计能看到的数据</h4>
+                <ul style="padding-left: 20px; line-height: 2;">
+                    <li>流量分析：PV/UV、来源地域、时段分布</li>
+                    <li>来源分析：搜索引擎、入口页面、搜索词</li>
+                    <li>受访页面：热门页面、页面停留、跳出率</li>
+                    <li>转化分析：设置转化目标后追踪</li>
+                </ul>
+            </div>
+
+            <!-- 两者对比 -->
+            <div class="section">
+                <h3>⚖️ GA4 vs 百度统计 对比</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>对比项</th>
+                        <th>Google Analytics 4</th>
+                        <th>百度统计</th>
+                    </tr>
+                    <tr>
+                        <td>网站备案</td>
+                        <td>❌ 不需要</td>
+                        <td>✅ 需要（国内要求）</td>
+                    </tr>
+                    <tr>
+                        <td>国内数据</td>
+                        <td>⚠️ 准确度一般</td>
+                        <td>✅ 更准确（基于百度搜索）</td>
+                    </tr>
+                    <tr>
+                        <td>国际数据</td>
+                        <td>✅ 全球覆盖</td>
+                        <td>❌ 仅限国内</td>
+                    </tr>
+                    <tr>
+                        <td>功能深度</td>
+                        <td>✅ 更强大、灵活</td>
+                        <td>⚠️ 基础功能够用</td>
+                    </tr>
+                    <tr>
+                        <td>学习成本</td>
+                        <td>⚠️ 英文界面，稍复杂</td>
+                        <td>✅ 中文界面，易上手</td>
+                    </tr>
+                    <tr>
+                        <td>推荐场景</td>
+                        <td>外贸/跨境/多语言网站</td>
+                        <td>纯国内业务网站</td>
+                    </tr>
+                </table>
+
+                <div class="success-box" style="margin-top: 15px;">
+                    <h4>💡 建议：两者同时安装</h4>
+                    <p>对于国内业务网站，建议同时安装 GA4 + 百度统计，取长补短：
+                    <br>• 百度统计：看国内搜索流量（百度）
+                    <br>• GA4：看多渠道综合数据、用户行为分析</p>
+                </div>
+            </div>
+
+            <!-- 控制台演示 -->
+            <div class="section">
+                <h3>🖥️ 浏览器控制台演示</h3>
+                <p style="margin-bottom: 15px;">按 <code>F12</code> 打开开发者工具，切换到 <strong>Console</strong> 标签，查看数据：</p>
+
+                <div class="console-demo">
+                    <div class="log-line"><span class="log-source">[GEO Test]</span> 页面加载完成</div>
+                    <div class="log-line"><span class="log-source">[GEO Test]</span> 当前URL: <span id="console-url"></span></div>
+                    <div class="log-line"><span class="log-source">[GEO Test]</span> UTM来源: <span id="console-source" class="log-value"></span></div>
+                    <div class="log-line"><span class="log-source">[GEO Test]</span> UTM媒介: <span id="console-medium" class="log-value"></span></div>
+                    <div class="log-line"><span class="log-source">[GEO Test]</span> UTM活动: <span id="console-campaign" class="log-value"></span></div>
+                    <div class="log-line"><span class="log-source">[GEO Test]</span> <strong>这些数据会被发送到分析工具</strong></div>
+                </div>
+
+                <div class="instructions">
+                    <h3>📝 如何在真实环境中验证</h3>
+                    <ol>
+                        <li>安装好 GA4/百度统计后，清除浏览器缓存</li>
+                        <li>用带UTM参数的链接访问你的网站</li>
+                        <li>等待 24-48 小时（GA4）或几小时（百度）</li>
+                        <li>登录分析工具后台，查看"用户获取"或"来源/媒体"报告</li>
+                        <li>你应该能看到 <code>utm_source = ai</code> 的数据</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- 使用步骤 -->
+            <div class="section">
+                <h3>🚀 快速上手步骤</h3>
+
+                <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 8px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">步骤1：获取分析工具ID</h4>
+                    <p>• GA4：<a href="https://analytics.google.com" target="_blank">Google Analytics</a> → 管理 → 数据流 → 测量ID<br>
+                    • 百度统计：<a href="https://tongji.baidu.com" target="_blank">百度统计</a> → 管理 → 新增网站 → 获取代码</p>
+                </div>
+
+                <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 8px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">步骤2：替换测试页面中的ID</h4>
+                    <p>编辑本文件，将 <code>G-YOUR_GA4_ID</code> 和 <code>YOUR_BAIDU_TONGJI_ID</code> 替换为真实ID</p>
+                </div>
+
+                <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 8px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">步骤3：启用代码（取消注释）</h4>
+                    <p>找到文件中的 <code>&lt;!--</code> 和 <code>--&gt;</code>，删除它们以启用代码</p>
+                </div>
+
+                <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 8px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">步骤4：测试和验证</h4>
+                    <p>• 用带UTM的链接访问页面<br>
+                    • 按 F12 查看控制台输出<br>
+                    • 24小时后登录分析工具查看数据</p>
+                </div>
+            </div>
+
+            <div class="footer">
+                GEO UTM追踪测试页 · 真实分析工具集成版<br>
+                包含 Google Analytics 4 和百度统计集成代码
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取URL参数
+        function getUrlParam(name) {
+            var params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        // 显示UTM参数
+        var utm_source = getUrlParam('utm_source');
+        var utm_medium = getUrlParam('utm_medium');
+        var utm_campaign = getUrlParam('utm_campaign');
+
+        document.getElementById('utm_source').textContent = utm_source || '未检测到';
+        document.getElementById('utm_medium').textContent = utm_medium || '未检测到';
+        document.getElementById('utm_campaign').textContent = utm_campaign || '未检测到';
+        document.getElementById('visit_time').textContent = new Date().toLocaleString('zh-CN');
+
+        // 控制台输出
+        document.getElementById('console-url').textContent = window.location.href;
+        document.getElementById('console-source').textContent = utm_source || '(not set)';
+        document.getElementById('console-medium').textContent = utm_medium || '(not set)';
+        document.getElementById('console-campaign').textContent = utm_campaign || '(not set)';
+
+        // 控制台日志
+        console.log('═══════════════════════════════════════════');
+        console.log('[GEO Test] UTM追踪数据已收集');
+        console.log('═══════════════════════════════════════════');
+        console.log('来源 (utm_source):', utm_source || '(not set)');
+        console.log('媒介 (utm_medium):', utm_medium || '(not set)');
+        console.log('活动 (utm_campaign):', utm_campaign || '(not set)');
+        console.log('完整URL:', window.location.href);
+        console.log('═══════════════════════════════════════════');
+        console.log('提示: 这些数据会被发送到 GA4/百度统计');
+    </script>
+</body>
+</html>
