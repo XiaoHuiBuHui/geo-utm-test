@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GEO UTM追踪测试页 - 真实分析工具版</title>
 
-    <!-- ============================================
-         Google Analytics 4 代码
-         使用说明：
-         1. 将 G-XXXXXXXXXX 替换为你的GA4测量ID
-         2. 创建账号：https://analytics.google.com
-         ============================================ -->
-    <!--
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_GA4_ID"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2CJWTJX49K"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-        gtag('config', 'G-YOUR_GA4_ID', {
-            'utm_source': getUrlParam('utm_source'),
-            'utm_medium': getUrlParam('utm_medium'),
-            'utm_campaign': getUrlParam('utm_campaign')
-        });
+
+        gtag('config', 'G-2CJWTJX49K');
+    </script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YOUR_GA4_ID', {
+    'utm_source': getUrlParam('utm_source'),
+    'utm_medium': getUrlParam('utm_medium'),
+    'utm_campaign': getUrlParam('utm_campaign')
+    });
     </script>
     -->
 
@@ -44,7 +45,12 @@
     -->
 
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -52,7 +58,11 @@
             padding: 20px;
             color: #fff;
         }
-        .container { max-width: 900px; margin: 0 auto; }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
 
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -60,10 +70,22 @@
             padding: 30px;
             text-align: center;
         }
-        .header h1 { font-size: 28px; margin-bottom: 10px; }
-        .header p { opacity: 0.9; }
 
-        .content { background: white; color: #333; border-radius: 0 0 20px 20px; padding: 30px; }
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .content {
+            background: white;
+            color: #333;
+            border-radius: 0 0 20px 20px;
+            padding: 30px;
+        }
 
         .section {
             background: #f8f9fa;
@@ -71,6 +93,7 @@
             padding: 20px;
             margin-bottom: 20px;
         }
+
         .section h3 {
             color: #333;
             margin-bottom: 15px;
@@ -87,27 +110,41 @@
             gap: 15px;
             margin-bottom: 15px;
         }
+
         .info-item {
             background: white;
             padding: 15px;
             border-radius: 8px;
             border-left: 4px solid #667eea;
         }
+
         .info-item label {
             display: block;
             font-size: 12px;
             color: #666;
             margin-bottom: 5px;
         }
+
         .info-item span {
             font-size: 18px;
             font-weight: bold;
             color: #333;
         }
-        .highlight { color: #667eea; }
-        .no-data { color: #999; font-style: italic; }
 
-        .test-links { text-align: center; margin: 20px 0; }
+        .highlight {
+            color: #667eea;
+        }
+
+        .no-data {
+            color: #999;
+            font-style: italic;
+        }
+
+        .test-links {
+            text-align: center;
+            margin: 20px 0;
+        }
+
         .test-links a {
             display: inline-block;
             padding: 12px 24px;
@@ -117,10 +154,24 @@
             font-weight: bold;
             transition: all 0.3s;
         }
-        .test-link { background: #667eea; color: white; }
-        .test-link:hover { background: #764ba2; transform: translateY(-2px); }
-        .test-link.secondary { background: #6c757d; }
-        .test-link.secondary:hover { background: #5a6268; }
+
+        .test-link {
+            background: #667eea;
+            color: white;
+        }
+
+        .test-link:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .test-link.secondary {
+            background: #6c757d;
+        }
+
+        .test-link.secondary:hover {
+            background: #5a6268;
+        }
 
         .instructions {
             background: #fff3cd;
@@ -128,8 +179,18 @@
             padding: 20px;
             margin-bottom: 20px;
         }
-        .instructions h3 { color: #856404; border-bottom-color: #ffc107; }
-        .instructions ol { padding-left: 20px; line-height: 2; color: #495057; }
+
+        .instructions h3 {
+            color: #856404;
+            border-bottom-color: #ffc107;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+            line-height: 2;
+            color: #495057;
+        }
+
         .instructions code {
             background: #fff;
             padding: 2px 6px;
@@ -150,23 +211,44 @@
             white-space: pre-wrap;
             word-break: break-all;
         }
-        .code-block .comment { color: #6a9955; }
-        .code-block .keyword { color: #569cd6; }
-        .code-block .string { color: #ce9178; }
-        .code-block .function { color: #dcdcaa; }
+
+        .code-block .comment {
+            color: #6a9955;
+        }
+
+        .code-block .keyword {
+            color: #569cd6;
+        }
+
+        .code-block .string {
+            color: #ce9178;
+        }
+
+        .code-block .function {
+            color: #dcdcaa;
+        }
 
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
             margin: 15px 0;
         }
-        .comparison-table th, .comparison-table td {
+
+        .comparison-table th,
+        .comparison-table td {
             border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
         }
-        .comparison-table th { background: #667eea; color: white; }
-        .comparison-table tr:nth-child(even) { background: #f8f9fa; }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
 
         .status-badge {
             display: inline-block;
@@ -175,8 +257,16 @@
             font-size: 12px;
             font-weight: bold;
         }
-        .status-disabled { background: #dc3545; color: white; }
-        .status-enabled { background: #28a745; color: white; }
+
+        .status-disabled {
+            background: #dc3545;
+            color: white;
+        }
+
+        .status-enabled {
+            background: #28a745;
+            color: white;
+        }
 
         .warning-box {
             background: #f8d7da;
@@ -185,8 +275,16 @@
             margin: 15px 0;
             border-left: 4px solid #dc3545;
         }
-        .warning-box h4 { color: #721c24; margin-bottom: 8px; }
-        .warning-box p { color: #721c24; font-size: 14px; }
+
+        .warning-box h4 {
+            color: #721c24;
+            margin-bottom: 8px;
+        }
+
+        .warning-box p {
+            color: #721c24;
+            font-size: 14px;
+        }
 
         .success-box {
             background: #d4edda;
@@ -195,8 +293,16 @@
             margin: 15px 0;
             border-left: 4px solid #28a745;
         }
-        .success-box h4 { color: #155724; margin-bottom: 8px; }
-        .success-box p { color: #155724; font-size: 14px; }
+
+        .success-box h4 {
+            color: #155724;
+            margin-bottom: 8px;
+        }
+
+        .success-box p {
+            color: #155724;
+            font-size: 14px;
+        }
 
         .console-demo {
             background: #1e1e1e;
@@ -205,9 +311,19 @@
             margin: 15px 0;
             font-family: 'Consolas', monospace;
         }
-        .console-demo .log-line { color: #d4d4d4; margin: 5px 0; }
-        .console-demo .log-source { color: #569cd6; }
-        .console-demo .log-value { color: #ce9178; }
+
+        .console-demo .log-line {
+            color: #d4d4d4;
+            margin: 5px 0;
+        }
+
+        .console-demo .log-source {
+            color: #569cd6;
+        }
+
+        .console-demo .log-value {
+            color: #ce9178;
+        }
 
         .footer {
             text-align: center;
@@ -219,10 +335,13 @@
         }
 
         @media (max-width: 768px) {
-            .info-grid { grid-template-columns: 1fr; }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -260,9 +379,11 @@
                 </div>
 
                 <div class="test-links">
-                    <a href="?utm_source=ai&utm_medium=doubao&utm_campaign=memory_pillow" class="test-link">🌐 豆包AI来源</a>
+                    <a href="?utm_source=ai&utm_medium=doubao&utm_campaign=memory_pillow" class="test-link">🌐
+                        豆包AI来源</a>
                     <a href="?utm_source=ai&utm_medium=qwen&utm_campaign=memory_pillow" class="test-link">🌐 千问AI来源</a>
-                    <a href="?utm_source=baidu&utm_medium=search&utm_campaign=memory_pillow" class="test-link secondary">🔍 百度搜索</a>
+                    <a href="?utm_source=baidu&utm_medium=search&utm_campaign=memory_pillow"
+                        class="test-link secondary">🔍 百度搜索</a>
                     <a href="?" class="test-link secondary">🔄 清除参数</a>
                 </div>
             </div>
@@ -307,28 +428,40 @@
 
                 <h4 style="margin: 15px 0 10px;">📋 GA4 代码示例</h4>
                 <div class="code-block"><span class="comment">&lt;!-- 1. 在 &lt;head&gt; 中添加全局代码 --&gt;</span>
-<span class="keyword">&lt;script</span> <span class="function">async src</span>=<span class="string">"https://www.googletagmanager.com/gtag/js?id=G-YOUR_ID"</span><span class="keyword">&gt;&lt;/script&gt;</span>
-<span class="keyword">&lt;script&gt;</span>
-    <span class="function">window.dataLayer</span> = <span class="keyword">window.dataLayer</span> || [];
-    <span class="keyword">function</span> <span class="function">gtag</span>(){ <span class="function">dataLayer.push</span>(arguments); };
-    <span class="function">gtag</span>(<span class="string">'js'</span>, <span class="keyword">new</span> Date());
-    <span class="function">gtag</span>(<span class="string">'config'</span>, <span class="string">'G-YOUR_ID'</span>);
-<span class="keyword">&lt;/script&gt;</span>
+                    <span class="keyword">&lt;script</span> <span class="function">async src</span>=<span
+                        class="string">"https://www.googletagmanager.com/gtag/js?id=G-YOUR_ID"</span><span
+                        class="keyword">&gt;&lt;/script&gt;</span>
+                    <span class="keyword">&lt;script&gt;</span>
+                    <span class="function">window.dataLayer</span> = <span class="keyword">window.dataLayer</span> ||
+                    [];
+                    <span class="keyword">function</span> <span class="function">gtag</span>(){ <span
+                        class="function">dataLayer.push</span>(arguments); };
+                    <span class="function">gtag</span>(<span class="string">'js'</span>, <span
+                        class="keyword">new</span> Date());
+                    <span class="function">gtag</span>(<span class="string">'config'</span>, <span
+                        class="string">'G-YOUR_ID'</span>);
+                    <span class="keyword">&lt;/script&gt;</span>
 
-<span class="comment">&lt;!-- 2. 追踪页面浏览（含UTM参数） --&gt;</span>
-<span class="keyword">&lt;script&gt;</span>
-    <span class="keyword">function</span> <span class="function">getUrlParam</span>(name) {
-        <span class="keyword">var</span> params = <span class="keyword">new</span> URLSearchParams(window.location.search);
-        <span class="keyword">return</span> params.get(name) || <span class="string">'(not set)'</span>;
-    }
-    <span class="function">gtag</span>(<span class="string">'config'</span>, <span class="string">'G-YOUR_ID'</span>, {
-        <span class="string">'page_title'</span>: <span class="string">'测试页面'</span>,
-        <span class="string">'page_location'</span>: window.location.href,
-        <span class="string">'utm_source'</span>: <span class="function">getUrlParam</span>(<span class="string">'utm_source'</span>),
-        <span class="string">'utm_medium'</span>: <span class="function">getUrlParam</span>(<span class="string">'utm_medium'</span>),
-        <span class="string">'utm_campaign'</span>: <span class="function">getUrlParam</span>(<span class="string">'utm_campaign'</span>)
-    });
-<span class="keyword">&lt;/script&gt;</span></div>
+                    <span class="comment">&lt;!-- 2. 追踪页面浏览（含UTM参数） --&gt;</span>
+                    <span class="keyword">&lt;script&gt;</span>
+                    <span class="keyword">function</span> <span class="function">getUrlParam</span>(name) {
+                    <span class="keyword">var</span> params = <span class="keyword">new</span>
+                    URLSearchParams(window.location.search);
+                    <span class="keyword">return</span> params.get(name) || <span class="string">'(not set)'</span>;
+                    }
+                    <span class="function">gtag</span>(<span class="string">'config'</span>, <span
+                        class="string">'G-YOUR_ID'</span>, {
+                    <span class="string">'page_title'</span>: <span class="string">'测试页面'</span>,
+                    <span class="string">'page_location'</span>: window.location.href,
+                    <span class="string">'utm_source'</span>: <span class="function">getUrlParam</span>(<span
+                        class="string">'utm_source'</span>),
+                    <span class="string">'utm_medium'</span>: <span class="function">getUrlParam</span>(<span
+                        class="string">'utm_medium'</span>),
+                    <span class="string">'utm_campaign'</span>: <span class="function">getUrlParam</span>(<span
+                        class="string">'utm_campaign'</span>)
+                    });
+                    <span class="keyword">&lt;/script&gt;</span>
+                </div>
 
                 <h4 style="margin: 15px 0 10px;">📊 GA4 能看到的数据</h4>
                 <ul style="padding-left: 20px; line-height: 2;">
@@ -378,23 +511,27 @@
 
                 <h4 style="margin: 15px 0 10px;">📋 百度统计代码示例</h4>
                 <div class="code-block"><span class="comment">&lt;!-- 百度统计代码（放在 &lt;body&gt; 最前面） --&gt;</span>
-<span class="keyword">&lt;script&gt;</span>
-    <span class="keyword">var</span> _hmt = _hmt || [];
-    (<span class="keyword">function</span>() {
-        <span class="keyword">var</span> hm = document.createElement(<span class="string">"script"</span>);
-        hm.src = <span class="string">"https://hm.baidu.com/hm.js?YOUR_ID"</span>;
-        <span class="keyword">var</span> s = document.getElementsByTagName(<span class="string">"script"</span>)[<span class="string">0</span>];
-        s.parentNode.insertBefore(hm, s);
-    })();
-<span class="keyword">&lt;/script&gt;</span>
+                    <span class="keyword">&lt;script&gt;</span>
+                    <span class="keyword">var</span> _hmt = _hmt || [];
+                    (<span class="keyword">function</span>() {
+                    <span class="keyword">var</span> hm = document.createElement(<span class="string">"script"</span>);
+                    hm.src = <span class="string">"https://hm.baidu.com/hm.js?YOUR_ID"</span>;
+                    <span class="keyword">var</span> s = document.getElementsByTagName(<span
+                        class="string">"script"</span>)[<span class="string">0</span>];
+                    s.parentNode.insertBefore(hm, s);
+                    })();
+                    <span class="keyword">&lt;/script&gt;</span>
 
-<span class="comment">&lt;!-- 手动追踪UTM来源（可选） --&gt;</span>
-<span class="keyword">&lt;script&gt;</span>
-    <span class="keyword">if</span> (_hmt) {
-        _hmt.push([<span class="string">'_setCustomVar'</span>, <span class="string">'utm_source'</span>, getUrlParam(<span class="string">'utm_source'</span>)]);
-        _hmt.push([<span class="string">'_setCustomVar'</span>, <span class="string">'utm_medium'</span>, getUrlParam(<span class="string">'utm_medium'</span>)]);
-    }
-<span class="keyword">&lt;/script&gt;</span></div>
+                    <span class="comment">&lt;!-- 手动追踪UTM来源（可选） --&gt;</span>
+                    <span class="keyword">&lt;script&gt;</span>
+                    <span class="keyword">if</span> (_hmt) {
+                    _hmt.push([<span class="string">'_setCustomVar'</span>, <span class="string">'utm_source'</span>,
+                    getUrlParam(<span class="string">'utm_source'</span>)]);
+                    _hmt.push([<span class="string">'_setCustomVar'</span>, <span class="string">'utm_medium'</span>,
+                    getUrlParam(<span class="string">'utm_medium'</span>)]);
+                    }
+                    <span class="keyword">&lt;/script&gt;</span>
+                </div>
 
                 <h4 style="margin: 15px 0 10px;">📊 百度统计能看到的数据</h4>
                 <ul style="padding-left: 20px; line-height: 2;">
@@ -449,8 +586,9 @@
                 <div class="success-box" style="margin-top: 15px;">
                     <h4>💡 建议：两者同时安装</h4>
                     <p>对于国内业务网站，建议同时安装 GA4 + 百度统计，取长补短：
-                    <br>• 百度统计：看国内搜索流量（百度）
-                    <br>• GA4：看多渠道综合数据、用户行为分析</p>
+                        <br>• 百度统计：看国内搜索流量（百度）
+                        <br>• GA4：看多渠道综合数据、用户行为分析
+                    </p>
                 </div>
             </div>
 
@@ -461,11 +599,16 @@
 
                 <div class="console-demo">
                     <div class="log-line"><span class="log-source">[GEO Test]</span> 页面加载完成</div>
-                    <div class="log-line"><span class="log-source">[GEO Test]</span> 当前URL: <span id="console-url"></span></div>
-                    <div class="log-line"><span class="log-source">[GEO Test]</span> UTM来源: <span id="console-source" class="log-value"></span></div>
-                    <div class="log-line"><span class="log-source">[GEO Test]</span> UTM媒介: <span id="console-medium" class="log-value"></span></div>
-                    <div class="log-line"><span class="log-source">[GEO Test]</span> UTM活动: <span id="console-campaign" class="log-value"></span></div>
-                    <div class="log-line"><span class="log-source">[GEO Test]</span> <strong>这些数据会被发送到分析工具</strong></div>
+                    <div class="log-line"><span class="log-source">[GEO Test]</span> 当前URL: <span
+                            id="console-url"></span></div>
+                    <div class="log-line"><span class="log-source">[GEO Test]</span> UTM来源: <span id="console-source"
+                            class="log-value"></span></div>
+                    <div class="log-line"><span class="log-source">[GEO Test]</span> UTM媒介: <span id="console-medium"
+                            class="log-value"></span></div>
+                    <div class="log-line"><span class="log-source">[GEO Test]</span> UTM活动: <span id="console-campaign"
+                            class="log-value"></span></div>
+                    <div class="log-line"><span class="log-source">[GEO Test]</span> <strong>这些数据会被发送到分析工具</strong>
+                    </div>
                 </div>
 
                 <div class="instructions">
@@ -486,8 +629,9 @@
 
                 <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 8px;">
                     <h4 style="color: #667eea; margin-bottom: 10px;">步骤1：获取分析工具ID</h4>
-                    <p>• GA4：<a href="https://analytics.google.com" target="_blank">Google Analytics</a> → 管理 → 数据流 → 测量ID<br>
-                    • 百度统计：<a href="https://tongji.baidu.com" target="_blank">百度统计</a> → 管理 → 新增网站 → 获取代码</p>
+                    <p>• GA4：<a href="https://analytics.google.com" target="_blank">Google Analytics</a> → 管理 → 数据流 →
+                        测量ID<br>
+                        • 百度统计：<a href="https://tongji.baidu.com" target="_blank">百度统计</a> → 管理 → 新增网站 → 获取代码</p>
                 </div>
 
                 <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 8px;">
@@ -503,8 +647,8 @@
                 <div style="margin: 15px 0; padding: 15px; background: white; border-radius: 8px;">
                     <h4 style="color: #667eea; margin-bottom: 10px;">步骤4：测试和验证</h4>
                     <p>• 用带UTM的链接访问页面<br>
-                    • 按 F12 查看控制台输出<br>
-                    • 24小时后登录分析工具查看数据</p>
+                        • 按 F12 查看控制台输出<br>
+                        • 24小时后登录分析工具查看数据</p>
                 </div>
             </div>
 
@@ -550,4 +694,5 @@
         console.log('提示: 这些数据会被发送到 GA4/百度统计');
     </script>
 </body>
+
 </html>
